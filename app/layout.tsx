@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
+import NhostProviderContext from "@/src/providers/NhostProvider";
+import ApolloProviderContext from "@/src/providers/ApolloProvider";
 
 const robotoSans = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
@@ -28,7 +30,9 @@ export default function RootLayout({
       <body
         className={`${robotoSans.variable} font-sans ${robotoMono.variable} font-mono antialiased`}
       >
-        {children}
+        <NhostProviderContext>
+          <ApolloProviderContext>{children}</ApolloProviderContext>
+        </NhostProviderContext>
       </body>
     </html>
   );
