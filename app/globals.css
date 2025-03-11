@@ -66,9 +66,9 @@
   --destructive: hsl(15 94% 38%);
   --destructive-foreground: hsl(0 0% 100%);
   --ring: hsl(204 77% 47%);
-  --chart-1: hsl(204 77% 47%);
-  --chart-2: hsl(204 9% 91%);
-  --chart-3: hsl(204 15% 85%);
+  --chart-1: #4682b4;
+  --chart-2: #1e90ff;
+  --chart-3: #00008b;
   --chart-4: hsl(204 9% 94%);
   --chart-5: hsl(204 80% 47%);
   --radius: 0.5rem;

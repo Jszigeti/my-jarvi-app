@@ -10,7 +10,7 @@ const DateFilter = ({
 }: DateFilterProps) => {
   return (
     <div className="flex flex-wrap gap-4">
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-1">
         <Label htmlFor="start-date">Début</Label>
         <Input
           id="start-date"
@@ -20,7 +20,7 @@ const DateFilter = ({
           className="border rounded-lg"
         />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-1">
         <Label htmlFor="end-date">Fin</Label>
         <Input
           id="end-date"

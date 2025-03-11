@@ -7,7 +7,8 @@ export function groupStatsByWeek(
 ): Record<string, HistoryEntry[]> {
   return (
     data?.reduce((acc, entry) => {
-      acc[entry.week] = acc[entry.week] ? [...acc[entry.week], entry] : [entry];
+      if (!acc[entry.week]) acc[entry.week] = [];
+      acc[entry.week].push(entry);
       return acc;
     }, {} as Record<string, HistoryEntry[]>) || {}
   );
@@ -18,13 +19,13 @@ export function transformStatsForChart(
 ) {
   return Object.entries(groupedData).map(([week, entries]) => {
     const formattedWeek = formatWeekRange(week);
-    const dataPoint: Record<string, string | number> = { week: formattedWeek };
-
-    entries.forEach((entry) => {
-      dataPoint[typeTranslations[entry.type] || entry.type] =
-        entry.response_rate;
+    const dataPoints = entries.map((entry) => {
+      const typeKey = typeTranslations[entry.type] || entry.type;
+      return { [typeKey]: entry.response_rate };
     });
-
-    return dataPoint;
+    return {
+      week: formattedWeek,
+      ...dataPoints.reduce((acc, point) => ({ ...acc, ...point }), {}),
+    };
   });
 }

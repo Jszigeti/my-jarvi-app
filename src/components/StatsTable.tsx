@@ -14,7 +14,7 @@ const StatsTable = ({ data }: StatsTableProps) => {
   return (
     <Table>
       <TableHeader>
-        <TableRow className="bg-primary">
+        <TableRow className="bg-primary hover:bg-primary">
           <TableHead className="w-1/5 text-center text-white">
             Semaine
           </TableHead>

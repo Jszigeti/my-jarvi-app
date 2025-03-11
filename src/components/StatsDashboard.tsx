@@ -40,6 +40,7 @@ const StatsDashboard = () => {
           onEndDate={setEndDate}
         />
         {/* Graph */}
+        <h2>Évolution du taux de réponse par canal</h2>
         <StatsChart data={chartData} />
         {/* Table */}
         <StatsTable data={tableData} />

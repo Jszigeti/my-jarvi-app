@@ -1,4 +1,4 @@
-import { LineChart, CartesianGrid, XAxis, YAxis, Line } from "recharts";
+import { LineChart, CartesianGrid, XAxis, YAxis, Line, Legend } from "recharts";
 import { typeTranslations, typeColors } from "@/constants/messageTypes";
 import { StatsChartProps } from "@/types/charts";
 import {
@@ -17,7 +17,7 @@ const StatsChart = ({ data }: StatsChartProps) => {
         <XAxis dataKey="week" />
         <YAxis />
         <ChartTooltip content={<ChartTooltipContent />} />
-        <ChartLegend content={<ChartLegendContent />} />
+        <Legend />
         {Object.keys(typeTranslations).map((type) => (
           <Line
             key={type}
@@ -25,6 +25,7 @@ const StatsChart = ({ data }: StatsChartProps) => {
             dataKey={typeTranslations[type]}
             stroke={typeColors[type] || "#8884d8"}
             strokeWidth={2}
+            name={typeTranslations[type]}
           />
         ))}
       </LineChart>
