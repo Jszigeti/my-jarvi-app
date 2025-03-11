@@ -1,13 +1,7 @@
 import { LineChart, CartesianGrid, XAxis, YAxis, Line, Legend } from "recharts";
 import { typeTranslations, typeColors } from "@/constants/messageTypes";
 import { StatsChartProps } from "@/types/charts";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
-} from "@/ui/chart";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/ui/chart";
 
 const StatsChart = ({ data }: StatsChartProps) => {
   return (
