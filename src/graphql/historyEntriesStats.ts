@@ -11,7 +11,7 @@ export const GET_RESPONSE_RATES = gql`
         user_id: { _eq: $user_id }
         week: { _gte: $start_date, _lte: $end_date }
       }
-      order_by: { week: desc }
+      order_by: { week: asc }
     ) {
       type
       week
