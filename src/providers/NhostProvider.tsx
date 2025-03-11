@@ -1,9 +1,9 @@
 "use client";
 
 import { NhostProvider } from "@nhost/nextjs";
-import { nhost } from "../lib/nhost";
+import { nhost } from "@/lib/nhost";
 
-const NhostProviderContext = ({ children }: any) => {
+const NhostProviderContext = ({ children }: { children: React.ReactNode }) => {
   return <NhostProvider nhost={nhost}>{children}</NhostProvider>;
 };
 

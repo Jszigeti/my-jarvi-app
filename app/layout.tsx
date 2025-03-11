@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
-import NhostProviderContext from "@/src/providers/NhostProvider";
-import ApolloProviderContext from "@/src/providers/ApolloProvider";
+
+// Providers
+import NhostProviderContext from "@/providers/NhostProvider";
+import ApolloProviderContext from "@/providers/ApolloProvider";
 
 const robotoSans = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
