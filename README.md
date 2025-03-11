@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My Jarvi App
 
-## Getting Started
+This project is a **Next.js 15 application** that displays messaging statistics using **Hasura (GraphQL), Apollo Client, and Nhost** for authentication. The app fetches and visualizes user response rates per message type over time using **ShadCN (UI components) and Recharts (graphs)**.
 
-First, run the development server:
+The project is structured to follow **best practices in GraphQL, Next.js, and TypeScript**, optimizing performance both in the frontend and backend.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Features
+
+- **Authentication with Nhost** (automatic login for demo purposes)
+- **GraphQL integration with Apollo Client**
+- **Messaging statistics visualization**
+- **Filtering data by time range**
+- **Optimized SQL query using an indexed view for fast data retrieval**
+- **Responsive UI with ShadCN components**
+
+## **Tech Stack**
+
+- **Next.js 15** (React 19)
+- **Nhost (Auth & Hasura GraphQL)**
+- **Apollo Client** (GraphQL API)
+- **ShadCN UI** (UI Components)
+- **Recharts** (Data visualization)
+- **TailwindCSS** (Styling)
+
+## Reflection and Approach
+
+### 1. SQL Query Optimization and Hasura Integration
+
+#### Query Analysis and Challenges
+
+- The goal was to calculate response rates for different message types.
+- The initial query was inefficient due to **excessive memory reads** and **sequential scans**.
+- `CASE WHEN` statements were slowing down aggregations.
+
+#### Optimizations Implemented
+
+- **Replaced `CASE WHEN` with `FILTER (WHERE…)`** to improve aggregation speed.
+- **Created a covering index** to eliminate unnecessary table lookups.
+- **Stored the query as a SQL view** to allow direct querying from Hasura.
+
+#### Performance Improvement
+
+- **Before optimization:** ~7 seconds
+- **After optimization:** ~38 milliseconds
+
+### 2. Frontend Development Strategy
+
+- **GraphQL with Apollo Client** → To efficiently fetch statistics with minimal re-renders.
+- **State management with hooks** → `useResponseRates.ts` handles fetching and transforming data.
+- **Data visualization with Recharts & ShadCN** → Ensuring an accessible and interactive UI.
+- **Modularized structure** → Components, hooks, and utilities are split logically for scalability.
+
+## **Installation & Setup**
+
+### **1. Clone the Repository**
+
+```sh
+git clone https://github.com/Jszigeti/my-jarvi-app.git
+cd my-jarvi-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### **2. Install Dependencies**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+pnpm install  # or npm install / yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### **3. Configure Environment Variables**
 
-## Learn More
+Rename `.env.example` to `.env` and fill in your **Nhost & Hasura credentials**:
 
-To learn more about Next.js, take a look at the following resources:
+```ini
+NEXT_PUBLIC_NHOST_SUBDOMAIN=your_nhost_subdomain
+NEXT_PUBLIC_NHOST_REGION=your_nhost_region
+NEXT_PUBLIC_NHOST_AUTH_EMAIL=your_default_user_email
+NEXT_PUBLIC_NHOST_AUTH_PASSWORD=your_default_user_password
+NEXT_PUBLIC_NHOST_GRAPHQL_URL=your_hasura_graphql_url
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### **4. Start the Development Server**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```sh
+pnpm dev  # or npm run dev / yarn dev
+```
 
-## Deploy on Vercel
+> The app will be available at `http://localhost:3000`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## **Project Structure**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+ ├── components/                 # UI Components (Table, Chart, Filters)
+ │   ├── DateFilter.tsx          # Date range picker component
+ │   ├── StatsChart.tsx          # Chart displaying response rates over time
+ │   ├── StatsDashboard.tsx      # Main dashboard component combining filters, chart, and table
+ │   ├── StatsTable.tsx          # Table displaying response rates per message type
+ │   └── ui/                     # ShadCN UI components
+ ├── constants/                  # Constants and static data
+ │   └── messageTypes.ts         # Message type translations and color mapping
+ ├── graphql/                    # GraphQL queries and mutations
+ │   └── historyEntriesStats.ts  # Query to fetch response rate statistics from Hasura
+ ├── hooks/                      # Custom hooks for state management and data fetching
+ │   └── useResponseRates.ts     # Hook to fetch and process response rates data
+ ├── lib/                        # Library functions for external integrations
+ │   ├── apollo.ts               # Apollo Client setup for GraphQL
+ │   ├── nhost.ts                # Nhost authentication and API setup
+ │   └── ...
+ ├── providers/                  # Context providers for app-wide state management
+ │   ├── ApolloProvider.tsx      # Apollo Provider wrapper for GraphQL queries
+ │   └── NhostProvider.tsx       # Nhost Provider wrapper for authentication
+ ├── types/                      # TypeScript type definitions
+ │   ├── tables.ts               # Types for table data
+ │   ├── charts.ts               # Types for chart data
+ │   └── ...
+ └── utils/                      # Utility functions
+     ├── dateHelpers.ts          # Functions for date manipulation and formatting
+     └── formatResponseStats.ts  # Functions for processing response stats data
+```
+
+## **Build & Start Production Server**
+
+```sh
+pnpm build
+pnpm start
+```
+
+## **License**
+
+This project is unlicensed.
+
+## **Contributing**
+
+Contributions are welcome! Feel free to open an issue or a pull request.
+
+## **Contact**
+
+**Author:** [Jonas](https://github.com/Jszigeti)
+
+**Email:** jonas.szigeti@icloud.com
+
+**GitHub:** [GitHub Repo](https://github.com/Jszigeti/my-jarvi-app)
+
+---
+
+**Enjoy coding!**
