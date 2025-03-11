@@ -3,6 +3,7 @@
 import { useUserData } from "@nhost/nextjs";
 import { useEffect, useState } from "react";
 import StatsDashboard from "@/src/components/StatsDashboard";
+import Header from "@/src/components/Header";
 
 export default function Home() {
   const userData = useUserData();
@@ -13,16 +14,14 @@ export default function Home() {
   }, []);
 
   if (!isClient) return <p>Chargement...</p>;
+  if (!userData) return <p>Merci de vous connecter.</p>;
 
   return (
-    <main className="container mx-auto">
-      <h1>Mon dashboard</h1>
-      {userData && (
-        <>
-          <p>Bienvenue {userData.displayName} !</p>
-          <StatsDashboard />
-        </>
-      )}
-    </main>
+    <>
+      <Header userDisplayName={userData.displayName} />
+      <main className="container mx-auto">
+        <StatsDashboard />
+      </main>
+    </>
   );
 }

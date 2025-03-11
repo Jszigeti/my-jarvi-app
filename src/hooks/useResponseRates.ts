@@ -8,7 +8,7 @@ import {
   transformStatsForChart,
 } from "@/utils/formatResponseStats";
 
-export function useResponseRates() {
+export const useResponseRates = () => {
   const userData = useUserData();
 
   const [startDate, setStartDate] = useState<string>(getStartDate());
@@ -35,4 +35,4 @@ export function useResponseRates() {
     tableData,
     chartData,
   };
-}
+};

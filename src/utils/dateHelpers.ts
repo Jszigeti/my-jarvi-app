@@ -1,7 +1,7 @@
-const getISODate = (date: Date) => date.toISOString().split("T")[0];
+const getISODate = (date: Date): string => date.toISOString().split("T")[0];
 
 // Returns the date of the last Monday
-const getLastMonday = () => {
+const getLastMonday = (): Date => {
   const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
   const dayOfWeek = today.getUTCDay();
@@ -14,19 +14,19 @@ const getLastMonday = () => {
 };
 
 // Returns the date of Monday 8 weeks ago (start of the period)
-export const getStartDate = () => {
+export const getStartDate = (): string => {
   const lastMonday = getLastMonday();
   lastMonday.setUTCDate(lastMonday.getUTCDate() - 56);
   return getISODate(lastMonday);
 };
 
 // Returns the date of the last Monday in ISO format (end of the period)
-export const getEndDate = () => {
+export const getEndDate = (): string => {
   return getISODate(getLastMonday());
 };
 
 // Returns dates in user-friendly format
-export function formatWeekRange(isoDate: string): string {
+export const formatWeekRange = (isoDate: string): string => {
   const startDate = new Date(isoDate);
   const endDate = new Date(startDate);
   endDate.setDate(startDate.getDate() + 6);
@@ -39,4 +39,4 @@ export function formatWeekRange(isoDate: string): string {
     });
 
   return `du ${formatDate(startDate)} au ${formatDate(endDate)}`;
-}
+};
