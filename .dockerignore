@@ -1,6 +1,8 @@
 # Ignore unnecessary files
 Dockerfile
 .dockerignore
+README.md
+.env.example
 
 # Ignore package managers' caches & dependencies
 node_modules

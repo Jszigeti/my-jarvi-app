@@ -45,5 +45,9 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: ghcr.io/${{ env.REPO_NAME }}:dev
 
-          # build-args: |
-          #   NEXT_PUBLIC_API_BASE_URL=${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
+          build-args: |
+            NEXT_PUBLIC_NHOST_SUBDOMAIN=${{ secrets.NEXT_PUBLIC_NHOST_SUBDOMAIN }}
+            NEXT_PUBLIC_NHOST_REGION=${{ secrets.NEXT_PUBLIC_NHOST_REGION }}
+            NEXT_PUBLIC_NHOST_AUTH_EMAIL=${{ secrets.NEXT_PUBLIC_NHOST_AUTH_EMAIL }}
+            NEXT_PUBLIC_NHOST_AUTH_PASSWORD=${{ secrets.NEXT_PUBLIC_NHOST_AUTH_PASSWORD }}
+            NEXT_PUBLIC_NHOST_GRAPHQL_URL=${{ secrets.NEXT_PUBLIC_NHOST_GRAPHQL_URL }}
